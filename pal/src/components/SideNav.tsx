@@ -68,7 +68,7 @@ function SideNav(props) {
               <TiSocialInstagram className="mr-4" />
               Socials
             </Link>
-            <Link className="links" to="/newsletter ">
+            <Link className="links" to="/newsletter">
               <IoNewspaper className="mr-4" />
               Newsletter
             </Link>

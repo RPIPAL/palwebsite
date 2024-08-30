@@ -12,7 +12,7 @@ function Navbar(props) {
         className={`h-20 lg:h-28 bg-black rounded-b-lg flex justify-between items-center px-6 z-10`}
       >
         <Link className="links" to="/">
-          <img src="logo.png" alt="PAL logo" className="h-14 lg:h-20" />
+          <img src="logo.png" alt="PAL logo" className="h-14 lg:h-24" />
         </Link>
 
         <MdOutlineMenu
@@ -21,7 +21,7 @@ function Navbar(props) {
             props.isOpen ? "hidden" : ""
           } lg:hidden`}
         />
-        <div className=" max-lg:hidden flex *:flex *:items-center text-2xl font-poppins flex-row w-1/2 justify-around">
+        <div className="max-lg:hidden flex *:flex *:items-center text-xl xl:text-2xl font-poppins flex-row w-1/2 2xl:w-2/5 justify-around">
           <Link className="links" to="/events">
             <FaCalendar className="mr-2" />
             Events
@@ -30,7 +30,7 @@ function Navbar(props) {
             <TiSocialInstagram className="mr-2" />
             Socials
           </Link>
-          <Link className="links" to="/newsletter ">
+          <Link className="links" to="/newsletter">
             <IoNewspaper className="mr-2" />
             Newsletter
           </Link>

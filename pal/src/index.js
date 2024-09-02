@@ -7,7 +7,7 @@ import Newsletter from "./pages/Newsletter.tsx";
 import Socials from "./pages/Socials.tsx";
 import Events from "./pages/Events.tsx";
 import { Provider } from "react-redux";
-import configureStore from "./configureStore";
+import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./reducers";
 
 const store = configureStore({ reducer: rootReducer });

@@ -9,6 +9,7 @@ import Events from "./pages/Events.tsx";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./reducers";
+import Admin from "./pages/Admin.tsx";
 
 const store = configureStore({ reducer: rootReducer });
 const router = createBrowserRouter([
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/events",
     element: <Events />,
+  },
+  {
+    path: "/admin",
+    element: <Admin />,
   },
 ]);
 const root = ReactDOM.createRoot(document.getElementById("root"));

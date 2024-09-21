@@ -16,6 +16,7 @@ function Home() {
         }`}
       >
         <Navbar toggleMenu={toggleMenu} isOpen={isOpen} setIsOpen={setIsOpen} />
+        <div className="container"></div>
       </div>
     </>
   );

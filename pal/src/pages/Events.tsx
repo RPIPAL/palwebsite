@@ -4,10 +4,11 @@ import { baseUrl } from "../config.js";
 function Events() {
   useEffect(() => {
     const loadPosts = async () => {
-      let results = await fetch(`${baseUrl}/posts/`).then((resp) =>
-        resp.json()
-      );
-      console.log(results);
+      let results = await fetch(`${baseUrl}/events/`);
+      const response = results.json();
+      response.then((data) => {
+        console.log(data);
+      });
     };
 
     loadPosts();

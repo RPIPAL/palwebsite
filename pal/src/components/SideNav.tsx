@@ -64,7 +64,7 @@ function SideNav(props) {
               <FaCalendar className="mr-4" />
               Events
             </Link>
-            <Link className="links" to="/media">
+            <Link className="links" to="/social">
               <TiSocialInstagram className="mr-4" />
               Socials
             </Link>

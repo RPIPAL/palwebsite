@@ -7,7 +7,7 @@ const router = express.Router();
 // Get a list of 50 posts
 router.get("/", async (req, res) => {
   let collection = await db.collection("events");
-  let results = await collection.find({}).toArray();
+  let results = await collection.find().toArray();
 
   res.send(results).status(200);
 });
@@ -35,7 +35,7 @@ router.get("/", async (req, res) => {
 
 // Add a new document to the collection
 router.post("/", async (req, res) => {
-  let collection = await db.collection("posts");
+  let collection = await db.collection("events");
   let newDocument = req.body;
   newDocument.date = new Date();
   let result = await collection.insertOne(newDocument);
@@ -43,13 +43,13 @@ router.post("/", async (req, res) => {
 });
 
 // Update the post with a new comment
-router.patch("/comment/:id", async (req, res) => {
+router.patch("/image/:id", async (req, res) => {
   const query = { _id: ObjectId(req.params.id) };
   const updates = {
-    $push: { comments: req.body },
+    $push: { imageURL: req.body },
   };
 
-  let collection = await db.collection("posts");
+  let collection = await db.collection("events");
   let result = await collection.updateOne(query, updates);
 
   res.send(result).status(200);

@@ -6,6 +6,7 @@ import { FaEdit } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { MdDone } from "react-icons/md";
 import { MdCancel } from "react-icons/md";
+import axios from "axios";
 
 function Admin() {
   const [events, setEvents] = useState();
@@ -15,7 +16,7 @@ function Admin() {
   const [fileUpload, setFileUpload] = useState("");
   const [createName, setCreateName] = useState("");
   const [createDescription, setCreateDescription] = useState("");
-  const [createDate, setCreateDate] = useState();
+  const [createDate, setCreateDate] = useState("");
 
   const nameChange = (e) => {
     setCreateName(e.target.value);
@@ -26,59 +27,53 @@ function Admin() {
   const dateChange = (e) => {
     setCreateDate(e.target.value);
   };
-  const convertBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
+
   const postReq = async () => {
     try {
-      console.log("HELP");
-      const formData = new FormData();
-      formData.append("file", fileUpload);
-      await fetch(`${baseUrl}/events/upload`, {
-        method: "POST",
-        body: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }).then(async (res) => {
-        console.log(res);
-        //   await fetch(`${baseUrl}/events`, {
-        //   method: "POST",
-        //   headers: {
-        //     "content-type": "application/json",
-        //   },
-        //   body: JSON.stringify({
-        //     name: createName,
-        //     description: createDescription,
-        //     date: createDate,
-        //   }),
-        // }).then((resp) => resp.json());
-      });
+      const imagePromise = await uploadImage();
+      const imgurRes = await uploadImgur(imagePromise);
+      console.log(imgurRes);
     } catch (error) {
       console.log(error);
     }
   };
+  const uploadImage = async () => {
+    const formData = new FormData();
+    formData.append("file", fileUpload);
+    return axios.post(`${baseUrl}/upload`, formData);
+  };
+  const uploadImgur = async (path) => {
+    console.log(path);
+    const response = await fetch(`${baseUrl}/events/upload`, {
+      method: "POST",
+      body: JSON.stringify({
+        path: path.data,
+        name: createName,
+        description: createDescription,
+        date: createDate,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response;
+  };
 
   const showPreview = async (e) => {
     setFilePreview(URL.createObjectURL(e.target.files[0]));
-    // await convertBase64(e.target.files[0]).then((data) => {
-    //   setFileUpload(data);
-    // });
     setFileUpload(e.target.files[0]);
   };
 
   const toggleCreate = () => {
     setCreatingEvent((create) => !create);
     setFileUpload("");
+    setCreateName("");
+    setCreateDate("");
+    setCreateDescription("");
+  };
+
+  const editEvent = (e) => {
+    const id = e.target.dataId;
   };
 
   useEffect(() => {
@@ -206,10 +201,20 @@ function Admin() {
                             <td>{event.name}</td>
                             <td className="text-sm">{event.description}</td>
                             <td className="w-1/8">{event.date}</td>
-                            <td>Image</td>
+                            <td>
+                              <img
+                                className="h-52 m-auto mt-2"
+                                src={event.imageURL}
+                                alt=""
+                              />
+                            </td>
                             <td>
                               <button>
-                                <FaEdit className="text-3xl" />
+                                <FaEdit
+                                  className="text-3xl"
+                                  onClick={editEvent}
+                                  data-id={event._id}
+                                />
                               </button>
                             </td>
                           </tr>

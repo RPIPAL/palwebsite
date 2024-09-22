@@ -2,6 +2,8 @@ import express from "express";
 import db from "../db/conn.mjs";
 import "../loadEnvironment.mjs";
 import { ObjectId } from "mongodb";
+import fs from "fs";
+import base64 from "base-64";
 
 const router = express.Router();
 
@@ -35,38 +37,52 @@ router.get("/", async (req, res) => {
 // });
 
 // Add a new document to the collection
-router.post("/", async (req, res) => {
-  console.log("asd");
-  let collection = await db.collection("events");
-  let json = JSON.parse(req.body);
+// router.post("/", async (req, res) => {
+//   console.log("asd");
+//   let collection = await db.collection("events");
+//   let json = JSON.parse(req.body);
 
-  imgur.then(async (res) => {
-    console.log(res);
-    json.imageURL = res.data.id;
-    const newDocument = JSON.stringify(json);
-    console.log(newDocument);
-    let result = await collection.insertOne(newDocument);
-    res.send(result).status(204);
-  });
-});
+//   imgur.then(async (res) => {
+//     console.log(res);
+//     json.imageURL = res.data.id;
+//     const newDocument = JSON.stringify(json);
+//     console.log(newDocument);
+//     let result = await collection.insertOne(newDocument);
+//     res.send(result).status(204);
+//   });
+// });
 
 router.post("/upload", async (req, res) => {
-  console.log("Asd");
+  let collection = db.collection("events");
   const imgurForm = new FormData();
-
   console.log(req.body);
-  console.log("asdfghrfedwaf");
-  imgurForm.append("file", req.body);
+  const filePath = req.body.path;
+  try {
+    imgurForm.append(
+      "image",
+      fs.readFileSync(filePath, { encoding: "base64" })
+    );
+    imgurForm.append("type", "base64");
+  } catch (e) {
+    return console.log(e);
+  }
 
+  console.log("uploading now!");
   const imgur = await fetch("https://api.imgur.com/3/image/", {
     method: "POST",
     body: imgurForm,
     headers: {
-      Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+      Authorization: `Bearer ${process.env.IMGUR_TOKEN}`,
       Accept: "application/json",
     },
   });
-  res.send(imgur).status(204);
+  const imgurData = await imgur.json();
+
+  let newDoc = { ...req.body, imageURL: imgurData.data.link };
+  delete newDoc.path;
+  const result = collection.insertOne(newDoc);
+  fs.unlink(filePath);
+  res.status(204).send(result);
 });
 // Update the post with a new comment
 router.patch("/image/:id", async (req, res) => {
@@ -87,7 +103,6 @@ router.delete("/:id", async (req, res) => {
 
   const collection = db.collection("posts");
   let result = await collection.deleteOne(query);
-
   res.send(result).status(200);
 });
 

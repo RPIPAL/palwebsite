@@ -3,14 +3,15 @@ import cors from "cors";
 import "./loadEnvironment.mjs";
 import "express-async-errors";
 import events from "./routes/events.mjs";
-
+import fileUpload from "express-fileupload";
 const PORT = process.env.PORT || 5050;
 const app = express();
 
+app.use(fileUpload());
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Load the /posts routes
 app.use("/events", events);
 
 // Global error handling

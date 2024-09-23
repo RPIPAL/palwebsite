@@ -85,10 +85,11 @@ router.post("/upload", async (req, res) => {
   res.status(204).send(result);
 });
 // Update the post with a new comment
-router.patch("/image/:id", async (req, res) => {
-  const query = { _id: ObjectId(req.params.id) };
+router.patch("/edit/:id", async (req, res) => {
+  console.log("edit");
+  const query = { _id: new ObjectId(req.params.id) };
   const updates = {
-    $push: { imageURL: req.body },
+    $set: req.body,
   };
 
   let collection = await db.collection("events");
@@ -99,11 +100,14 @@ router.patch("/image/:id", async (req, res) => {
 
 // Delete an entry
 router.delete("/:id", async (req, res) => {
-  const query = { _id: ObjectId(req.params.id) };
-
-  const collection = db.collection("posts");
-  let result = await collection.deleteOne(query);
-  res.send(result).status(200);
+  try {
+    const query = { _id: new ObjectId(req.params.id) };
+    let collection = db.collection("events");
+    let result = await collection.deleteOne(query);
+    res.send(result).status(200);
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 export default router;

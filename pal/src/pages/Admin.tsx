@@ -7,8 +7,10 @@ import { FaPlus } from "react-icons/fa6";
 import { MdDone } from "react-icons/md";
 import { MdCancel } from "react-icons/md";
 import axios from "axios";
+import EditRow from "../components/EditRow.tsx";
 
 function Admin() {
+  const [rowEdit, setRowEdit] = useState([]);
   const [events, setEvents] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [creatingEvent, setCreatingEvent] = useState(false);
@@ -17,7 +19,8 @@ function Admin() {
   const [createName, setCreateName] = useState("");
   const [createDescription, setCreateDescription] = useState("");
   const [createDate, setCreateDate] = useState("");
-
+  const [eventLength, setEventLength] = useState(0);
+  const [editId, setEditId] = useState(Number);
   const nameChange = (e) => {
     setCreateName(e.target.value);
   };
@@ -27,7 +30,58 @@ function Admin() {
   const dateChange = (e) => {
     setCreateDate(e.target.value);
   };
-
+  const deleteReq = async (e) => {
+    try {
+      const response = await fetch(
+        `${baseUrl}/events/${e.currentTarget.getAttribute("data-id")}`,
+        {
+          method: "delete",
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const patchReq = async (e) => {
+    try {
+      if (fileUpload !== "") {
+        const imagePromise = await uploadImage();
+        const response = await fetch(
+          `${baseUrl}/events/edit/${e.currentTarget.getAttribute("data-id")}`,
+          {
+            method: "patch",
+            body: JSON.stringify({
+              imageURL: imagePromise.data,
+              name: createName,
+              description: createDescription,
+              date: createDate,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+      } else {
+        console.log("Asd");
+        const response = await fetch(
+          `${baseUrl}/events/edit/${e.currentTarget.getAttribute("data-id")}`,
+          {
+            method: "PATCH",
+            body: JSON.stringify({
+              name: createName,
+              description: createDescription,
+              date: createDate,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const postReq = async () => {
     try {
       const imagePromise = await uploadImage();
@@ -70,10 +124,32 @@ function Admin() {
     setCreateName("");
     setCreateDate("");
     setCreateDescription("");
+    setFilePreview("");
+    setFileUpload("");
+    setRowEdit(new Array(eventLength).fill(false));
   };
 
-  const editEvent = (e) => {
-    const id = e.target.dataId;
+  const toggleEdit = (e) => {
+    const event = JSON.parse(e.currentTarget.getAttribute("data-event"));
+    setFilePreview(event.imageURL);
+    setCreateName(event.name);
+    setCreateDate(event.date);
+    setCreateDescription(event.description);
+
+    const id = parseInt(e.currentTarget.getAttribute("data-id"));
+    setEditId(event._id);
+    setRowEdit(new Array(eventLength).fill(false));
+    setRowEdit((arr) => {
+      const updatedArr = [...arr]; // Create a copy of the array
+      updatedArr[id] = !updatedArr[id]; // Update the specific index
+      return updatedArr; // Return the new array
+    });
+
+    console.log(rowEdit);
+  };
+
+  const cancelEdit = () => {
+    setRowEdit(new Array(eventLength).fill(false));
   };
 
   useEffect(() => {
@@ -83,6 +159,8 @@ function Admin() {
 
       setEvents(response);
       console.log(response);
+      setEventLength(response.length);
+      setRowEdit(new Array(response.length).fill(false));
       setIsLoading(false);
     };
     loadEvents();
@@ -194,10 +272,26 @@ function Admin() {
                     ) : (
                       ""
                     )}
-                    {events.map((event) => {
-                      return (
+                    {events.map((event, i) => {
+                      return rowEdit[i] ? (
+                        <EditRow
+                          createName={createName}
+                          nameChange={nameChange}
+                          createDescription={createDescription}
+                          descriptionChange={descriptionChange}
+                          createDate={createDate}
+                          dateChange={dateChange}
+                          showPreview={showPreview}
+                          filePreview={filePreview}
+                          deleteReq={deleteReq}
+                          patchReq={patchReq}
+                          toggleEdit={toggleEdit}
+                          id={editId}
+                          cancelEdit={cancelEdit}
+                        />
+                      ) : (
                         <>
-                          <tr>
+                          <tr id={event._id}>
                             <td>{event.name}</td>
                             <td className="text-sm">{event.description}</td>
                             <td className="w-1/8">{event.date}</td>
@@ -212,8 +306,9 @@ function Admin() {
                               <button>
                                 <FaEdit
                                   className="text-3xl"
-                                  onClick={editEvent}
-                                  data-id={event._id}
+                                  onClick={toggleEdit}
+                                  data-event={JSON.stringify(event)}
+                                  data-id={i}
                                 />
                               </button>
                             </td>

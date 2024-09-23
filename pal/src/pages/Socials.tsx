@@ -12,7 +12,7 @@ function Socials() {
     <>
       <SideNav toggleMenu={toggleMenu} isOpen={isOpen} setIsOpen={setIsOpen} />
       <div
-        className={`bg-gradient-to-br from-[#9b870c] via-[#C41E3A] via-25% to-[#0032A0] to-100% text-[#FBEBD9] h-screen font-poppins ${
+        className={`bg-gradient-to-br from-[#9b870c] via-[#9A2A2A] via-50% to-[#0032A0] to-80%  text-[#FBEBD9] h-screen font-poppins ${
           isOpen ? "blur-sm" : ""
         }`}
       >
@@ -35,7 +35,7 @@ function Socials() {
                 Check out our latest Youtube video
               </h2>
             </div>
-            <p className="my-2 text-lg lg:mx-12">
+            <p className="my-2 text-lg lg:mx-16">
               Click{" "}
               <a
                 className="underline"

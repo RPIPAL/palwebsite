@@ -39,7 +39,7 @@ function Home() {
                 initial={{ y: 0, x: 0 }}
                 animate={{ y: "var(--to-y-second)", x: "var(--to-x-second)" }}
                 transition={{ delay: 1.5, duration: 0.3 }}
-                className="[--to-x-second:0px] [--to-y-second:-27vh] 
+                className="[--to-x-second:0px] [--to-y-second:-23vh] 
                 md:[--to-x-second:-19vw] md:[--to-y-second:0px] xl:[--to-x-second:-300px] xl:[--to-y-second:0px] 2xl:[--to-x-second:-350px]"
               >
                 <h2 className="text-7xl xl:text-8xl 2xl:text-9xl font-bold ">
@@ -58,41 +58,23 @@ function Home() {
             <motion.div
               initial={{
                 y: "var(--image-from-y)",
-                x: "var(--image-from-x, 500px)",
+                x: "var(--image-from-x, 0px)",
                 opacity: 0,
               }}
               animate={{
                 y: "var(--image-to-y)",
-                x: "var(--image-to-x, -25px)",
+                x: "var(--image-to-x, 0px)",
                 opacity: 1,
               }}
               transition={{ delay: 1.5, duration: 0.5, ease: "backInOut" }}
-              className="absolute w-3/4 shadow-lg shadow-black overflow-x-hidden [--image-from-y:-50px] [--image-to-y:-50px] 
+              className="absolute w-5/6 shadow-lg shadow-black overflow-x-hidden [--image-from-y:400px] [--image-to-y:50px] 
               md:w-5/12 lg:[--image-from-y:0px] md:[--image-to-y:0px] md:[--image-to-x:23vw] md:[--image-from-x:900px] 
               xl:w-5/12 xl:[--image-from-y:0px] xl:[--image-to-y:0px] xl:[--image-to-x:300px] xl:[--image-from-x:900px] 
               2xl:[--image-to-x:22vw]"
             >
               <img className="" src="camping.jpg" alt="" />
             </motion.div>
-            <motion.div
-              initial={{
-                y: "var(--image-from-y)",
-                x: "var(--image-from-x, -500px)",
-                opacity: 0,
-              }}
-              animate={{
-                y: "var(--image-to-y)",
-                x: "var(--image-to-x, 25px)",
-                opacity: 1,
-              }}
-              transition={{ delay: 1.7, duration: 0.5, ease: "backInOut" }}
-              className="absolute w-3/4 shadow-lg shadow-black overflow-x-hidden [--image-from-y:220px] [--image-to-y:220px] 
-              md:w-5/12 lg:[--image-from-y:0px] md:[--image-to-y:0px] md:[--image-to-x:23vw] md:[--image-from-x:900px] 
-              xl:w-5/12 xl:[--image-from-y:0px] xl:[--image-to-y:0px] xl:[--image-to-x:300px] xl:[--image-from-x:900px] 
-              2xl:[--image-to-x:22vw]"
-            >
-              <img className="" src="volcano.png" alt="" />
-            </motion.div>
+
             <motion.div
               initial={{ opacity: 0, y: 400 }}
               animate={{ opacity: 1, y: 0, x: -20 }}

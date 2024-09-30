@@ -9,7 +9,7 @@ function Navbar(props) {
   return (
     <>
       <div
-        className={`h-20 lg:h-28 bg-black rounded-b-lg flex justify-between items-center px-6 z-10`}
+        className={`h-20 lg:h-28 absolute w-full bg-black rounded-b-lg flex justify-between items-center px-6 z-10`}
       >
         <Link className="links" to="/">
           <img src="logo.png" alt="PAL logo" className="h-14 lg:h-24" />

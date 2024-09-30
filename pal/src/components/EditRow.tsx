@@ -67,7 +67,7 @@ function EditRow(props) {
           </button>
           <button
             className="bg-red-700 text-white p-3 rounded-sm text-2xl"
-            onClick={props.toggleEdit}
+            onClick={props.cancelEdit}
           >
             Cancel <MdCancel className="m-2" />
           </button>

@@ -38,6 +38,7 @@ function Admin() {
           method: "delete",
         }
       );
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -61,6 +62,7 @@ function Admin() {
             },
           }
         );
+        console.log(response);
       } else {
         console.log("Asd");
         const response = await fetch(
@@ -77,6 +79,7 @@ function Admin() {
             },
           }
         );
+        console.log(response);
       }
     } catch (error) {
       console.log(error);

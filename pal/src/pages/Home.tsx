@@ -28,6 +28,7 @@ function Home() {
             toggleMenu={toggleMenu}
             isOpen={isOpen}
             setIsOpen={setIsOpen}
+            absolute={true}
           />
           <div className="first-page container [--from-x-first:-500px] flex flex-col h-screen justify-center items-center mx-auto w-3/4 md:[--from-x-first:-1000px]">
             <motion.div

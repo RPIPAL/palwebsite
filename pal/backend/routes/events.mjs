@@ -81,29 +81,60 @@ router.post("/upload", async (req, res) => {
   let newDoc = { ...req.body, imageURL: imgurData.data.link };
   delete newDoc.path;
   const result = collection.insertOne(newDoc);
-  fs.unlink(filePath);
+
   res.status(204).send(result);
 });
 // Update the post with a new comment
-router.patch("/image/:id", async (req, res) => {
-  const query = { _id: ObjectId(req.params.id) };
+router.patch("/edit/:id", async (req, res) => {
+  console.log(req.body);
+
+  if (req.body.hasOwnProperty("imageURL")) {
+    const imgurForm = new FormData();
+    console.log(req.body);
+    const filePath = req.body.imageURL;
+    try {
+      imgurForm.append(
+        "image",
+        fs.readFileSync(filePath, { encoding: "base64" })
+      );
+      imgurForm.append("type", "base64");
+    } catch (e) {
+      return console.log(e);
+    }
+
+    console.log("uploading now!");
+    const imgur = await fetch("https://api.imgur.com/3/image/", {
+      method: "POST",
+      body: imgurForm,
+      headers: {
+        Authorization: `Bearer ${process.env.IMGUR_TOKEN}`,
+        Accept: "application/json",
+      },
+    });
+    const imgurData = await imgur.json();
+    fs.unlink(filePath);
+    req.body.imageURL = imgurData.data.link;
+  }
+  const query = { _id: new ObjectId(req.params.id) };
   const updates = {
-    $push: { imageURL: req.body },
+    $set: req.body,
   };
 
   let collection = await db.collection("events");
   let result = await collection.updateOne(query, updates);
-
   res.send(result).status(200);
 });
 
 // Delete an entry
 router.delete("/:id", async (req, res) => {
-  const query = { _id: ObjectId(req.params.id) };
-
-  const collection = db.collection("posts");
-  let result = await collection.deleteOne(query);
-  res.send(result).status(200);
+  try {
+    const query = { _id: new ObjectId(req.params.id) };
+    let collection = db.collection("events");
+    let result = await collection.deleteOne(query);
+    res.send(result).status(200);
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 export default router;

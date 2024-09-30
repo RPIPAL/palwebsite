@@ -4,8 +4,12 @@ module.exports = {
     extend: {
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
-        // jetbrains: ["JetBrains Mono", "monospace"],
-        // ibm: ["IBM Plex Mono", "monospace"],
+        agent: ["agent-orange"],
+
+        jetbrains: ["JetBrains Mono", "monospace"],
+        ibm: ["IBM Plex Mono", "monospace"],
+        bungee: ["Bungee Shade", "sans-serif"],
+        raleway: ["Raleway", " sans-serif"],
       },
     },
   },

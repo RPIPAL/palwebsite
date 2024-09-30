@@ -13,6 +13,8 @@ Pull the repo into local using Github desktop or cmd line
 
 In the terminal after pulling the code to VS code:
 
+### Backend
+
   `cd pal`
   
   `npm i`
@@ -22,7 +24,9 @@ In the terminal after pulling the code to VS code:
   `npm i`
 
   `node index.mjs`
-
+  
+  In the backend folder, create a `.env` file and copy the code from the doc in the PAL drive called "PAL Social Media Logins" and scroll to the bottom
+  
 ### In another terminal:
   
   `cd pal`

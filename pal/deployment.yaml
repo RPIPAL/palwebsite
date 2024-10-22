@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: reactapp
-          image: neupaneakrur/reactapp #image from my dockerhub
+          image: zhangj50/pal
           ports:
             - containerPort: 80

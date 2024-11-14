@@ -81,7 +81,7 @@ router.post("/upload", async (req, res) => {
   let newDoc = { ...req.body, imageURL: imgurData.data.link };
   delete newDoc.path;
   const result = collection.insertOne(newDoc);
-
+  fs.unlinkSync(filePath);
   res.status(204).send(result);
 });
 // Update the post with a new comment

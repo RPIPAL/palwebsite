@@ -4,7 +4,7 @@ import "./loadEnvironment.mjs";
 import "express-async-errors";
 import events from "./routes/events.mjs";
 import multer from "multer";
-import fs from "fs";
+
 const PORT = process.env.PORT || 5050;
 const app = express();
 

@@ -10,16 +10,18 @@ echo "Starting production build process..."
 
 # Step 1: Install dependencies
 echo "Installing dependencies..."
-npm install
+npm ci --only=production
 
-# Step 4: Restart PM2 with new configuration
+# Step 2: Run any necessary build commands (Optional)
+# If you have a build step for your frontend assets, include it here:
+# echo "Building application..."
+# npm run build
+
+# Step 3: Start or reload PM2 process
 echo "Restarting application with PM2..."
-pm2 reload pm2.config.json --update-env
+pm2 reload pm2.config.json --update-env --no-daemon
 
-# Step 5: Save PM2 process list
+# Step 4: Save PM2 process list
 pm2 save
 
 echo "Production build complete. Application is running."
-
-# Step 6: Optional - Start PM2 startup script to run on reboot
-pm2 startup

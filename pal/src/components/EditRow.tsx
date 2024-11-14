@@ -10,7 +10,7 @@ function EditRow(props) {
         <td>
           <input
             type="text"
-            className="p-2 border-2 border-black rounded-md"
+            className="p-2 border-2 border-black rounded-md w-full"
             value={props.createName}
             onChange={props.nameChange}
             autoFocus
@@ -20,14 +20,25 @@ function EditRow(props) {
         <td>
           <textarea
             value={props.createDescription}
-            className="p-2 border-2 border-black rounded-md w-full"
+            className="p-1 border-2 border-black h-32 rounded-md text-xs"
             onChange={props.descriptionChange}
             required
           />
         </td>
         <td>
           <input
+            type="text"
+            className="p-2 border-2 border-black rounded-md w-full"
+            value={props.createLocation}
+            onChange={props.locationChange}
+            autoFocus
+            required
+          />
+        </td>
+        <td>
+          <input
             type="datetime-local"
+            className="w-1/2"
             value={props.createDate}
             onChange={props.dateChange}
             required
@@ -35,7 +46,7 @@ function EditRow(props) {
         </td>
         <td>
           <input
-            className="bg-slate-300 p-2 py-10 rounded-md border-dotted border-blue-700 border-2"
+            className="bg-slate-300 p-2 py-10 rounded-md border-dotted border-blue-700 border-2 w-full"
             type="file"
             accept="image/*"
             onChange={props.showPreview}
@@ -51,7 +62,7 @@ function EditRow(props) {
         </td>
         <td className="*:my-4 *:flex *:items-center *:rounded-sm">
           <button
-            className="bg-red-700 text-white p-3 rounded-sm text-2xl"
+            className="bg-red-700 text-white p-2 rounded-sm text-xl"
             onClick={props.deleteReq}
             data-id={props.id}
           >
@@ -59,17 +70,17 @@ function EditRow(props) {
           </button>
           <button
             type="submit"
-            className="bg-blue-700 text-white p-3 rounded-sm text-2xl"
+            className="bg-blue-700 text-white p-2 rounded-sm text-xl"
             onClick={props.patchReq}
             data-id={props.id}
           >
             Done <MdDone />
           </button>
           <button
-            className="bg-red-700 text-white p-3 rounded-sm text-2xl"
+            className="bg-red-700 text-white p-2 rounded-sm text-xl"
             onClick={props.cancelEdit}
           >
-            Cancel <MdCancel className="m-2" />
+            Cancel <MdCancel className="" />
           </button>
         </td>
       </tr>

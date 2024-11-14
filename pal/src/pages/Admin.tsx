@@ -8,6 +8,7 @@ import { MdDone } from "react-icons/md";
 import { MdCancel } from "react-icons/md";
 import axios from "axios";
 import EditRow from "../components/EditRow.tsx";
+import { ring } from "ldrs";
 
 function Admin() {
   const [rowEdit, setRowEdit] = useState([]);
@@ -21,6 +22,7 @@ function Admin() {
   const [createDate, setCreateDate] = useState("");
   const [eventLength, setEventLength] = useState(0);
   const [editId, setEditId] = useState(Number);
+  const [createLocation, setCreateLocation] = useState("");
   const nameChange = (e) => {
     setCreateName(e.target.value);
   };
@@ -29,6 +31,9 @@ function Admin() {
   };
   const dateChange = (e) => {
     setCreateDate(e.target.value);
+  };
+  const locationChange = (e) => {
+    setCreateLocation(e.target.value);
   };
   const deleteReq = async (e) => {
     try {
@@ -42,6 +47,7 @@ function Admin() {
     } catch (error) {
       console.log(error);
     }
+    window.location.reload();
   };
   const patchReq = async (e) => {
     try {
@@ -73,6 +79,7 @@ function Admin() {
               name: createName,
               description: createDescription,
               date: createDate,
+              location: createLocation,
             }),
             headers: {
               "Content-Type": "application/json",
@@ -84,12 +91,16 @@ function Admin() {
     } catch (error) {
       console.log(error);
     }
+    window.location.reload();
   };
+
   const postReq = async () => {
     try {
+      setIsLoading(true);
       const imagePromise = await uploadImage();
       const imgurRes = await uploadImgur(imagePromise);
       console.log(imgurRes);
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -108,6 +119,7 @@ function Admin() {
         name: createName,
         description: createDescription,
         date: createDate,
+        location: createLocation,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -128,6 +140,7 @@ function Admin() {
     setCreateDate("");
     setCreateDescription("");
     setFilePreview("");
+    setCreateLocation("");
     setFileUpload("");
     setRowEdit(new Array(eventLength).fill(false));
   };
@@ -137,7 +150,9 @@ function Admin() {
     setFilePreview(event.imageURL);
     setCreateName(event.name);
     setCreateDate(event.date);
+    setCreateLocation(event.location);
     setCreateDescription(event.description);
+    setCreatingEvent(false);
 
     const id = parseInt(e.currentTarget.getAttribute("data-id"));
     setEditId(event._id);
@@ -156,6 +171,7 @@ function Admin() {
   };
 
   useEffect(() => {
+    ring.register();
     const loadEvents = async () => {
       let results = await fetch(`${baseUrl}/events/`);
       const response = await results.json();
@@ -176,7 +192,7 @@ function Admin() {
           <IoIosArrowBack className="text-3xl" />
           Return to Home
         </Link>
-        <div className="container p-4">
+        <div className={`p-4`}>
           <div className="">
             {creatingEvent ? (
               <>
@@ -202,16 +218,27 @@ function Admin() {
           </div>
           <div>
             {isLoading ? (
-              ""
+              <>
+                <div className="m-auto flex justify-center">
+                  <l-ring size="60" color="white"></l-ring>
+                </div>
+              </>
             ) : (
               <>
-                <table className="w-full *:*:*:border-4 *:*:*:p-4">
+                <table className=" *:*:*:border-4 *:*:*:p-2">
                   <thead className="text-3xl">
                     <tr>
                       <th className="w-1/8">Name</th>
-                      <th className="w-1/2">Description</th>
-                      <th className="w-1/8">Date</th>
-                      <th>Image</th>
+                      <th
+                        className={`${
+                          creatingEvent || editId ? "w-1/6" : "w-1/4"
+                        }`}
+                      >
+                        Description
+                      </th>
+                      <th className="w-1/8">Location</th>
+                      <th className="w-1/8">Date/Time</th>
+                      <th className="w-full">Image</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -222,7 +249,7 @@ function Admin() {
                           <td>
                             <input
                               type="text"
-                              className="p-2 border-2 border-black rounded-md"
+                              className="p-1 border-2 border-black rounded-md w-full"
                               value={createName}
                               onChange={nameChange}
                               autoFocus
@@ -232,14 +259,23 @@ function Admin() {
                           <td>
                             <textarea
                               value={createDescription}
-                              className="p-2 border-2 border-black rounded-md w-full"
+                              className="p-1 border-2 border-black h-32 rounded-md text-xs w-full"
                               onChange={descriptionChange}
                               required
                             />
                           </td>
                           <td>
                             <input
+                              type="text"
+                              className="p-1 border-2 border-black rounded-md w-full"
+                              value={createLocation}
+                              onChange={locationChange}
+                            />
+                          </td>
+                          <td className="p-0">
+                            <input
                               type="datetime-local"
+                              className="w-1/2"
                               value={createDate}
                               onChange={dateChange}
                               required
@@ -247,7 +283,7 @@ function Admin() {
                           </td>
                           <td>
                             <input
-                              className="bg-slate-300 p-2 py-10 rounded-md border-dotted border-blue-700 border-2"
+                              className="bg-slate-300 p-2 py-10 rounded-md border-dotted border-blue-700 border-2 w-full"
                               type="file"
                               accept="image/*"
                               onChange={showPreview}
@@ -291,13 +327,16 @@ function Admin() {
                           toggleEdit={toggleEdit}
                           id={editId}
                           cancelEdit={cancelEdit}
+                          createLocation={createLocation}
+                          locationChange={locationChange}
                         />
                       ) : (
                         <>
                           <tr id={event._id}>
                             <td>{event.name}</td>
                             <td className="text-sm">{event.description}</td>
-                            <td className="w-1/8">{event.date}</td>
+                            <td>{event.location}</td>
+                            <td className="">{event.date}</td>
                             <td>
                               <img
                                 className="h-52 m-auto mt-2"

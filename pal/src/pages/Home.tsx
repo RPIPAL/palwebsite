@@ -21,7 +21,7 @@ function Home() {
     <>
       <SideNav toggleMenu={toggleMenu} isOpen={isOpen} setIsOpen={setIsOpen} />
       <div
-        className={`bg-gradient-to-br from-[#FFFF00] from-0% via-[#8B0000] via-30% to-[#00008B] to-100% text-[#FBEBD9] font-raleway h-[calc(200vh)] overflow-hidden ${
+        className={`bg-gradient-to-br from-[#FFFF00] from-0% via-[#8B0000] h-[calc(200vh)] via-30% to-[#00008B] to-100% text-[#FBEBD9] font-raleway md:h-[calc(200vh+7rem)] overflow-hidden ${
           isOpen ? "blur-sm" : ""
         }`}
       >
@@ -131,7 +131,7 @@ function Home() {
             })}
           </motion.svg>
         </motion.div>
-        <div className="second-page h-screen md:flex md:justify-around md:flex-row-reverse">
+        <div className="second-page h-[calc(100vh-7rem)] md:h-[calc(100vh)] md:flex md:justify-around md:flex-row-reverse">
           <div
             className="bg-white/75 text-black md:w-1/2 md:bg-transparent 
           md:inline-block md:m-auto md:text-[#FBEBD9] *:md:w-11/12 *:md:m-auto *:lg:w-5/6 *:xl:w-3/4"
@@ -139,7 +139,7 @@ function Home() {
             <motion.h1
               initial={{ x: "var(--who-x-from)", opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
-              transition={{ delay: 1.2 }}
+              transition={{ delay: 0.5 }}
               viewport={{ once: true }}
               className="text-5xl [--who-x-from:-300px] font-semibold max-md:text-center md:[--who-x-from:300px] pt-12 md:pb-6 lg:text-6xl lg:pb-8 md:pt-0 xl:text-7xl"
             >
@@ -148,25 +148,26 @@ function Home() {
             <motion.p
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              transition={{ delay: 2 }}
+              transition={{ delay: 1 }}
               viewport={{ once: true }}
               className="p-8 text-sm md:p-0 lg:w-5/6 lg:text-lg xl:text-xl 2xl:text-2xl"
             >
-              Lorem ipsum odor amet, consectetuer adipiscing elit. Potenti
-              pellentesque habitasse tellus gravida finibus. Neque dignissim
-              lobortis hendrerit sed natoque sagittis ridiculus duis. Risus
-              adipiscing lobortis volutpat praesent mi gravida mauris nostra
-              purus. Consectetur vestibulum libero id augue dis enim parturient
-              ornare. Integer gravida lobortis consectetur et nisl posuere
-              sollicitudin. Cras molestie ac massa pharetra class cras nam.
-              Torquent erat ad cubilia bibendum dis auctor.
+              The Philippine American League (PAL) is a multicultural
+              organization at RPI dedicated to promoting and celebrating
+              Filipino culture to the local community! We host dance workshops,
+              teach how to cook Filipino food, learn new Tagalog words and
+              phrases, and work with a variety of other groups on campus to
+              raise awareness about Filipino culture. The organization has
+              become a standard for culture, diversity and acceptance, and we
+              are proud to be pinoy and welcome anyone who wants to learn more
+              about what it is to be Filipino!
             </motion.p>
           </div>
           <div className="md:w-1/2 md:m-auto [--second-image-x-from:-300px] ">
             <motion.img
               initial={{ x: -300, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
-              transition={{ delay: 1 }}
+              transition={{ delay: 0 }}
               viewport={{ once: true }}
               src="camping.jpg"
               alt=""

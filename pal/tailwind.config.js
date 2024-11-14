@@ -10,6 +10,7 @@ module.exports = {
         ibm: ["IBM Plex Mono", "monospace"],
         bungee: ["Bungee Shade", "sans-serif"],
         raleway: ["Raleway", " sans-serif"],
+        baskervville: ["Baskervville", " sans-serif"],
       },
     },
   },

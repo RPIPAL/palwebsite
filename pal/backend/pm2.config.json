@@ -1,0 +1,13 @@
+{
+  "apps": [
+    {
+      "name": "palbackend",
+      "script": "index.mjs",
+      "instances": "max",
+      "exec_mode": "cluster",
+      "env_production": {
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}

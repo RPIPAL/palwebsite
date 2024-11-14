@@ -4,13 +4,16 @@ import "./loadEnvironment.mjs";
 import "express-async-errors";
 import events from "./routes/events.mjs";
 import multer from "multer";
+import compression from "compression";
+import helmet from "helmet";
 
 const PORT = process.env.PORT || 5050;
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-
+app.use(helmet());
+app.use(compression());
 app.use("/events", events);
 
 const storage = multer.diskStorage({

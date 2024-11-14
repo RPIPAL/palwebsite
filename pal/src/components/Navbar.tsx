@@ -11,7 +11,7 @@ function Navbar(props) {
       <div
         className={`h-20 lg:h-28 ${
           props.absolute ? "absolute w-full" : ""
-        } bg-black rounded-b-lg flex justify-between items-center px-6 z-10`}
+        } bg-black rounded-b-sm flex justify-between items-center px-6 z-10`}
       >
         <Link className="links" to="/">
           <img src="logo.png" alt="PAL logo" className="h-14 lg:h-24" />

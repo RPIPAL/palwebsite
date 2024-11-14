@@ -21,7 +21,7 @@ function Home() {
     <>
       <SideNav toggleMenu={toggleMenu} isOpen={isOpen} setIsOpen={setIsOpen} />
       <div
-        className={`bg-gradient-to-br from-[#FFFF00] from-0% via-[#8B0000] h-[calc(200vh)] via-30% to-[#00008B] to-100% text-[#FBEBD9] font-raleway md:h-[calc(200vh+7rem)] overflow-hidden ${
+        className={`bg-gradient-to-br from-[#FFFF00] from-0% via-[#8B0000] h-[calc(200vh+7rem)] via-30% to-[#00008B] to-100% text-[#FBEBD9] font-raleway md:h-[calc(200vh+7rem)] overflow-hidden ${
           isOpen ? "blur-sm" : ""
         }`}
       >
@@ -42,10 +42,10 @@ function Home() {
                 initial={{ y: 0, x: 0 }}
                 animate={{ y: "var(--to-y-second)", x: "var(--to-x-second)" }}
                 transition={{ delay: 1.5, duration: 0.3 }}
-                className="[--to-x-second:0px] [--to-y-second:-27vh] 
+                className="[--to-x-second:0px] [--to-y-second:-29vh] 
                 md:[--to-x-second:-19vw] md:[--to-y-second:0px] xl:[--to-x-second:-300px] xl:[--to-y-second:0px] 2xl:[--to-x-second:-350px]"
               >
-                <h2 className="text-7xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold ">
+                <h2 className="text-6xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold ">
                   Mabuhay
                 </h2>
                 <motion.div
@@ -66,11 +66,11 @@ function Home() {
               }}
               animate={{
                 y: "var(--image-to-y)",
-                x: "var(--image-to-x, -25px)",
+                x: "var(--image-to-x, -40px)",
                 opacity: 1,
               }}
               transition={{ delay: 1.5, duration: 0.5, ease: "backInOut" }}
-              className="absolute w-[calc(15rem+19vw)] shadow-lg shadow-black overflow-x-hidden [--image-from-y:-50px] [--image-to-y:-50px] 
+              className="absolute w-[calc(13rem+18vw)] md:w-[calc(15rem+19vw)] shadow-lg shadow-black overflow-x-hidden [--image-from-y:-50px] [--image-to-y:-50px] 
               md:w-5/12 lg:[--image-from-y:0px] md:[--image-to-y:0px] md:[--image-to-x:23vw] md:[--image-from-x:900px] 
               xl:w-5/12 xl:[--image-from-y:0px] xl:[--image-to-y:0px] xl:[--image-to-x:300px] xl:[--image-from-x:900px] 
               2xl:[--image-to-x:22vw]"
@@ -85,11 +85,11 @@ function Home() {
               }}
               animate={{
                 y: "var(--image-to-y)",
-                x: "var(--image-to-x, 25px)",
+                x: "var(--image-to-x, 30px)",
                 opacity: 1,
               }}
               transition={{ delay: 1.7, duration: 0.5, ease: "backInOut" }}
-              className="absolute w-[calc(15rem+19vw)] shadow-lg shadow-black overflow-x-hidden [--image-from-y:220px] [--image-to-y:220px] 
+              className="absolute w-[calc(13rem+18vw)] md:w-[calc(15rem+19vw)] shadow-lg shadow-black overflow-x-hidden [--image-from-y:180px] [--image-to-y:180px] 
               md:w-5/12 lg:[--image-from-y:0px] md:[--image-to-y:0px] md:[--image-to-x:23vw] md:[--image-from-x:900px] 
               xl:w-5/12 xl:[--image-from-y:0px] xl:[--image-to-y:0px] xl:[--image-to-x:300px] xl:[--image-from-x:900px] 
               2xl:[--image-to-x:22vw]"
@@ -131,7 +131,7 @@ function Home() {
             })}
           </motion.svg>
         </motion.div>
-        <div className="second-page h-[calc(100vh-7rem)] md:h-[calc(100vh)] md:flex md:justify-around md:flex-row-reverse">
+        <div className="second-page h-[calc(100vh)] md:h-[calc(100vh)] md:flex md:justify-around md:flex-row-reverse">
           <div
             className="bg-white/75 text-black md:w-1/2 md:bg-transparent 
           md:inline-block md:m-auto md:text-[#FBEBD9] *:md:w-11/12 *:md:m-auto *:lg:w-5/6 *:xl:w-3/4"
@@ -150,7 +150,7 @@ function Home() {
               whileInView={{ opacity: 1 }}
               transition={{ delay: 1 }}
               viewport={{ once: true }}
-              className="p-8 text-sm md:p-0 lg:w-5/6 lg:text-lg xl:text-xl 2xl:text-2xl"
+              className="p-6 text-sm md:p-0 lg:w-5/6 lg:text-lg xl:text-xl 2xl:text-2xl"
             >
               The Philippine American League (PAL) is a multicultural
               organization at RPI dedicated to promoting and celebrating
@@ -171,7 +171,7 @@ function Home() {
               viewport={{ once: true }}
               src="camping.jpg"
               alt=""
-              className="shadow-lg shadow-black w-5/6 m-auto mt-12 sm:w-3/4 md:mt-0 md:w-11/12 lg:w-5/6"
+              className="shadow-lg shadow-black w-11/12 m-auto mt-12 sm:w-3/4 md:mt-0 md:w-11/12 lg:w-5/6"
             />
           </div>
         </div>

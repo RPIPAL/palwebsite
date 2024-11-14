@@ -37,6 +37,7 @@ function Admin() {
   };
   const deleteReq = async (e) => {
     try {
+      setIsLoading(true);
       const response = await fetch(
         `${baseUrl}/events/${e.currentTarget.getAttribute("data-id")}`,
         {
@@ -51,23 +52,24 @@ function Admin() {
   };
   const patchReq = async (e) => {
     try {
+      setIsLoading(true);
       if (fileUpload !== "") {
+        const id = e.currentTarget.getAttribute("data-id");
         const imagePromise = await uploadImage();
-        const response = await fetch(
-          `${baseUrl}/events/edit/${e.currentTarget.getAttribute("data-id")}`,
-          {
-            method: "patch",
-            body: JSON.stringify({
-              imageURL: imagePromise.data,
-              name: createName,
-              description: createDescription,
-              date: createDate,
-            }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+
+        const response = await fetch(`${baseUrl}/events/edit/${id}`, {
+          method: "PATCH",
+          body: JSON.stringify({
+            imageURL: imagePromise.data,
+            name: createName,
+            description: createDescription,
+            date: createDate,
+            location: createLocation,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         console.log(response);
       } else {
         console.log("Asd");

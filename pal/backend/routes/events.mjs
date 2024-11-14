@@ -112,7 +112,8 @@ router.patch("/edit/:id", async (req, res) => {
       },
     });
     const imgurData = await imgur.json();
-    fs.unlink(filePath);
+
+    fs.unlinkSync(filePath);
     req.body.imageURL = imgurData.data.link;
   }
   const query = { _id: new ObjectId(req.params.id) };

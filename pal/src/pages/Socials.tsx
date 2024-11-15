@@ -28,7 +28,7 @@ function Socials() {
               Check out our latest Youtube video
             </h2>
             <iframe
-              src="https://www.youtube.com/embed?listType=playlist&list=UUNDOosZ4sNGRR3hd7Co2YDQ"
+              src="https://www.youtube.com/embed/vbmCuPlOCIY?si=UNWE9piw8GYHcNi3"
               className="w-full aspect-video rounded-sm shadow-2xl"
               title="Checkout"
               allowFullScreen

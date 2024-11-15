@@ -23,7 +23,7 @@ function Socials() {
             isOpen={isOpen}
             setIsOpen={setIsOpen}
           />
-          <div className="w-1/2 lg:w-5/6 m-auto my-10 lg:flex items-center">
+          <div className="w-5/6 sm:w-2/3 md:w-1/2 lg:w-5/6 m-auto my-10 lg:flex items-center">
             <h2 className="text-center text-4xl font-semibold my-6 lg:hidden">
               Check out our latest Youtube video
             </h2>
